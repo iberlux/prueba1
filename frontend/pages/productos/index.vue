@@ -51,16 +51,16 @@ const products = computed(() => toList(productsResponse.value))
 </script>
 
 <template>
-  <div>
+  <div class="section-shell">
     <SectionTitle title="Catálogo" subtitle="Encuentra la bicicleta ideal para tu operación." />
 
-    <div class="mb-6 flex flex-wrap gap-2">
-      <NuxtLink to="/productos" class="rounded border px-3 py-1 text-sm">Todas</NuxtLink>
+    <div class="mb-8 flex flex-wrap gap-2">
+      <NuxtLink to="/productos" class="rounded-full border border-white/20 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-300/60 hover:bg-sky-300/10">Todas</NuxtLink>
       <NuxtLink
         v-for="category in categories"
         :key="category.slug"
         :to="`/productos?categoria=${category.slug}`"
-        class="rounded border px-3 py-1 text-sm"
+        class="rounded-full border border-white/20 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-300/60 hover:bg-sky-300/10"
       >
         {{ category.name }}
       </NuxtLink>

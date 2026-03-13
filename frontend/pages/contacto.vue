@@ -26,19 +26,19 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <section class="mx-auto max-w-2xl">
+  <section class="mx-auto max-w-3xl section-shell">
     <SectionTitle title="Contacto" subtitle="Cuéntanos tus necesidades y te ayudamos a diseñar la solución." />
 
-    <form class="space-y-4 rounded-lg border bg-white p-6" @submit.prevent="submitForm">
-      <input v-model="form.full_name" required placeholder="Nombre completo" class="w-full rounded border px-3 py-2" />
-      <input v-model="form.email" type="email" required placeholder="Email" class="w-full rounded border px-3 py-2" />
-      <input v-model="form.phone" placeholder="Teléfono" class="w-full rounded border px-3 py-2" />
-      <input v-model="form.subject" required placeholder="Asunto" class="w-full rounded border px-3 py-2" />
-      <textarea v-model="form.message" required placeholder="Mensaje" rows="5" class="w-full rounded border px-3 py-2" />
-      <button :disabled="loading" class="rounded bg-brand-700 px-4 py-2 font-semibold text-white">
+    <form class="space-y-4" @submit.prevent="submitForm">
+      <input v-model="form.full_name" required placeholder="Nombre completo" class="input-field" />
+      <input v-model="form.email" type="email" required placeholder="Email" class="input-field" />
+      <input v-model="form.phone" placeholder="Teléfono" class="input-field" />
+      <input v-model="form.subject" required placeholder="Asunto" class="input-field" />
+      <textarea v-model="form.message" required placeholder="Mensaje" rows="5" class="input-field" />
+      <button :disabled="loading" class="rounded-full bg-sky-300 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:opacity-70">
         {{ loading ? 'Enviando...' : 'Enviar mensaje' }}
       </button>
-      <p v-if="success" class="text-sm text-green-700">{{ success }}</p>
+      <p v-if="success" class="text-sm text-emerald-300">{{ success }}</p>
     </form>
   </section>
 </template>

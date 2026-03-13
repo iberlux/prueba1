@@ -13,34 +13,34 @@ useSeoMeta({
 </script>
 
 <template>
-  <article v-if="product" class="space-y-6">
+  <article v-if="product" class="section-shell space-y-6">
     <SectionTitle :title="product.name" :subtitle="product.short_description" />
 
     <img
       :src="product.images?.[0]?.image_url || 'https://placehold.co/1200x600?text=Bicicleta'"
       :alt="product.name"
-      class="h-72 w-full rounded-lg object-cover"
+      class="h-72 w-full rounded-2xl border border-white/10 object-cover"
     />
 
-    <p class="text-slate-700">{{ product.description }}</p>
+    <p class="leading-relaxed text-slate-200">{{ product.description }}</p>
 
     <section>
-      <h3 class="mb-3 text-xl font-semibold">Especificaciones</h3>
-      <ul class="grid gap-2 sm:grid-cols-2">
+      <h3 class="mb-3 text-xl font-semibold text-white">Especificaciones</h3>
+      <ul class="grid gap-3 sm:grid-cols-2">
         <li
           v-for="spec in product.specifications || []"
           :key="`${spec.key}-${spec.value}`"
-          class="rounded border bg-white px-3 py-2"
+          class="rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-slate-200"
         >
-          <span class="font-medium">{{ spec.key }}:</span> {{ spec.value }}
+          <span class="font-medium text-white">{{ spec.key }}:</span> {{ spec.value }}
         </li>
       </ul>
     </section>
   </article>
 
-  <p v-else-if="pending" class="text-slate-600">Cargando producto...</p>
+  <p v-else-if="pending" class="text-slate-300">Cargando producto...</p>
 
-  <p v-else-if="error" class="text-red-600">No se pudo cargar el producto. Intenta nuevamente.</p>
+  <p v-else-if="error" class="text-rose-300">No se pudo cargar el producto. Intenta nuevamente.</p>
 
-  <p v-else class="text-slate-600">No encontramos este producto.</p>
+  <p v-else class="text-slate-300">No encontramos este producto.</p>
 </template>

@@ -11,10 +11,10 @@ const { data: products } = await useAsyncData('featured-products', () =>
 </script>
 
 <template>
-  <div class="space-y-10">
+  <div class="space-y-10 md:space-y-14">
     <HeroSection />
 
-    <section>
+    <section class="section-shell">
       <SectionTitle
         title="Productos destacados"
         subtitle="Modelos seleccionados para movilidad urbana y logística empresarial."
