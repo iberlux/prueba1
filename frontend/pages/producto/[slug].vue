@@ -2,7 +2,7 @@
 const route = useRoute()
 const { apiFetch } = useApi()
 
-const { data: product } = await useAsyncData(`product-${route.params.slug}`, () =>
+const { data: product, pending, error } = await useAsyncData(`product-${route.params.slug}`, () =>
   apiFetch<any>(`/products/${route.params.slug}/`)
 )
 
@@ -37,4 +37,10 @@ useSeoMeta({
       </ul>
     </section>
   </article>
+
+  <p v-else-if="pending" class="text-slate-600">Cargando producto...</p>
+
+  <p v-else-if="error" class="text-red-600">No se pudo cargar el producto. Intenta nuevamente.</p>
+
+  <p v-else class="text-slate-600">No encontramos este producto.</p>
 </template>

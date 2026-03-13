@@ -25,6 +25,7 @@ services:
     environment:
       POSTGRES_HOST: db
       DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost,backend
+      BACKEND_PUBLIC_BASE_URL: http://localhost:8000
     depends_on:
       db:
         condition: service_healthy
@@ -39,7 +40,8 @@ services:
       context: ./frontend
     container_name: bikes_frontend
     environment:
-      NUXT_PUBLIC_API_BASE: http://backend:8000/api
+      NUXT_PUBLIC_API_BASE_INTERNAL: http://backend:8000/api
+      NUXT_PUBLIC_API_BASE: http://localhost:8000/api
     depends_on:
       - backend
     ports:
