@@ -3,8 +3,8 @@ defineProps<{ title: string; subtitle?: string }>()
 </script>
 
 <template>
-  <header class="mb-6">
-    <h2 class="text-3xl font-bold">{{ title }}</h2>
-    <p v-if="subtitle" class="mt-2 text-slate-600">{{ subtitle }}</p>
+  <header class="mb-6 md:mb-8">
+    <h2 class="text-2xl font-semibold tracking-tight text-white md:text-3xl">{{ title }}</h2>
+    <p v-if="subtitle" class="mt-3 max-w-3xl text-sm text-slate-300 md:text-base">{{ subtitle }}</p>
   </header>
 </template>
