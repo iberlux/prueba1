@@ -25,6 +25,7 @@ services:
     environment:
       POSTGRES_HOST: db
       DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost,backend
+      BACKEND_PUBLIC_BASE_URL: http://localhost:8000
     depends_on:
       db:
         condition: service_healthy

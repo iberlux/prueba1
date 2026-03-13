@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers
 
 from .models import Category, Product, ProductImage, ProductSpecification
@@ -14,7 +15,12 @@ class ProductImageSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if not obj.image:
             return None
+
         url = obj.image.url
+        public_base_url = getattr(settings, 'BACKEND_PUBLIC_BASE_URL', '')
+        if public_base_url:
+            return f'{public_base_url}{url}'
+
         return request.build_absolute_uri(url) if request else url
 
 
