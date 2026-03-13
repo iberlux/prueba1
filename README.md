@@ -1,6 +1,6 @@
 # Bikes Corp Platform
 
-Base de proyecto web corporativo para empresa de bicicletas.
+Base de proyecto web corporativo para empresa de bicicletas (sin ecommerce en esta fase).
 
 ## Incluye
 - Home corporativa
@@ -8,8 +8,6 @@ Base de proyecto web corporativo para empresa de bicicletas.
 - Detalle de producto
 - Formulario de contacto
 - Gestión de contenidos desde Django admin
-
-> No incluye ecommerce en esta fase.
 
 ## Estructura
 
@@ -21,32 +19,59 @@ Base de proyecto web corporativo para empresa de bicicletas.
 │   │   └── contact/
 │   ├── config/
 │   ├── manage.py
-│   └── requirements.txt
+│   ├── requirements.txt
+│   └── Dockerfile
 ├── frontend/
 │   ├── components/
 │   ├── composables/
 │   ├── pages/
-│   └── nuxt.config.ts
+│   ├── nuxt.config.ts
+│   └── Dockerfile
 ├── docs/
 │   └── architecture.md
 └── docker-compose.yml
 ```
 
-## Requisitos
+## Opción recomendada (todo dockerizado)
+
+### Arranque
+```bash
+docker compose up -d --build
+```
+
+### Parar servicios
+```bash
+docker compose down
+```
+
+### URLs
+- Frontend: http://localhost:3000/
+- Backend health: http://localhost:8000/
+- API: http://localhost:8000/api/
+- Admin Django: http://localhost:8000/admin/
+
+> El backend aplica migraciones automáticamente al iniciar en Docker.
+
+### Primer acceso a admin
+```bash
+docker compose exec backend python manage.py createsuperuser
+```
+
+---
+
+## Opción manual local
+
+### Requisitos
 - Python 3.11+
 - Node.js 20+
-- PostgreSQL 16+ (o Docker)
+- PostgreSQL 16+
 
-## 1) Levantar PostgreSQL
-
-Con Docker:
-
+### 1) Base de datos
 ```bash
 docker compose up -d db
 ```
 
-## 2) Backend (Django + DRF)
-
+### 2) Backend
 ```bash
 cd backend
 python -m venv .venv
@@ -55,35 +80,30 @@ pip install -r requirements.txt
 cp .env.example .env
 python manage.py migrate
 python manage.py createsuperuser
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000
 ```
 
-Backend disponible en:
-- API: `http://localhost:8000/api/`
-- Admin: `http://localhost:8000/admin/`
-
-### Endpoints iniciales
-- `GET /api/categories/`
-- `GET /api/products/`
-- `GET /api/products/<slug>/`
-- `POST /api/contact-messages/`
-
-## 3) Frontend (Nuxt 3 + Tailwind)
-
+### 3) Frontend (otra terminal)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend disponible en:
-- `http://localhost:3000`
+## Endpoints iniciales
+- `GET /api/categories/`
+- `GET /api/products/`
+- `GET /api/products/<slug>/`
+- `POST /api/contact-messages/`
 
-Variable opcional para API:
-
-```bash
-NUXT_PUBLIC_API_BASE=http://localhost:8000/api
-```
+## Troubleshooting rápido
+- Si `localhost:8000` no abre:
+  - revisa logs backend: `docker compose logs -f backend`
+  - confirma DB levantada: `docker compose ps`
+- Si `localhost:3000` no abre:
+  - revisa logs frontend: `docker compose logs -f frontend`
+  - confirma que Nuxt arrancó en `0.0.0.0:3000`
+- Si usas modo manual, backend y frontend deben ejecutarse en terminales separadas.
 
 ## Buenas prácticas aplicadas
 - Arquitectura por apps de dominio.
